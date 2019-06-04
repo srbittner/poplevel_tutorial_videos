@@ -43,14 +43,27 @@ def set_neuron_axes(ax, t_end, n, fontsize=12):
     ax.set_xlim((0, t_end+t_buf))
     ax.set_xticks([0.0, 0.8])
     ax.set_ylim((0, 45))
+    ax.tick_params(direction='out')
     return None
 
-def set_ss_axes(ax, fontsize=12):
+def set_ss_axes(ax, fontsize=12, dim=2):
     ax.set_xlim((0, 45))
     ax.set_ylim((0, 45))
-    ax.set_xlabel('neuron 1 \n rate', rotation=0, fontsize=fontsize)
-    ax.set_ylabel('neuron 2 \n rate', rotation=0, fontsize=fontsize)
-    ax.yaxis.set_label_coords(-0.2,0.6)
+    if (dim == 2):
+        ax.set_xlabel('neuron 1 \n rate', rotation=0, fontsize=fontsize)
+        ax.set_ylabel('neuron 2 \n rate', rotation=0, fontsize=fontsize)
+        ax.yaxis.set_label_coords(-0.2,0.6)
+    if (dim == 3):
+        ax.set_xlabel('neuron 1 \n rate', rotation=0, fontsize=fontsize)
+        ax.set_ylabel('neuron 2 \n rate', rotation=0, fontsize=fontsize)
+        ax.zaxis.set_rotate_label(False)
+        ax.set_zlabel('neuron 3 \n rate', rotation=90, fontsize=fontsize)
+        #ax.yaxis.set_label_coords(-0.2,0.6)
+        ax.set_zlim((0, 25))
+        ax.grid(False)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_zticks([])
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     return None

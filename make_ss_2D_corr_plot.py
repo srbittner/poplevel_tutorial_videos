@@ -37,8 +37,6 @@ inds = range(0, T, skip)
 x1 = x1[inds]
 x2 = x2[inds]
 
-filler = np.zeros((T,))
-
 fig = plt.figure(figsize=(4, 4))
 ax = plt.gca()
 set_ss_axes(ax, fontsize)
