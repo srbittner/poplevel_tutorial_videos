@@ -82,7 +82,7 @@ if (N_trajectories == 2):
     ax2 = plt.subplot(2,2,3)
     ax3 = plt.subplot(1,2,2)
     set_neuron_axes(ax1, t_end, 1, fontsize=fontsize)
-    set_neuron_axes(ax2, t_end, 2, fontsize=fontsize)
+    set_neuron_axes(ax2, t_end, 2, xlabel=True, fontsize=fontsize)
     set_ss_axes(ax3, fontsize=fontsize)
     axs = [ax1, ax2, ax3]
 elif (N_trajectories == 3):
@@ -93,7 +93,7 @@ elif (N_trajectories == 3):
     ax4 = plt.subplot(1,2,2, projection='3d')
     set_neuron_axes(ax1, t_end, 1, fontsize=fontsize)
     set_neuron_axes(ax2, t_end, 2, fontsize=fontsize)
-    set_neuron_axes(ax3, t_end, 3, fontsize=fontsize)
+    set_neuron_axes(ax3, t_end, 3, xlabel=True, fontsize=fontsize)
     set_ss_axes(ax4, fontsize=fontsize, dim=3)
     axs = [ax1, ax2, ax3, ax4]
 else:
@@ -128,6 +128,7 @@ def init():
         if (type(line) == mpl_toolkits.mplot3d.art3d.Line3D):
             line.set_3d_properties([])
             pt.set_3d_properties([])
+            axs[-1].view_init(10, 45)
     return lines + pts
 
 
@@ -144,6 +145,7 @@ def animate(i):
         if (type(line) == mpl_toolkits.mplot3d.art3d.Line3D):
             line.set_3d_properties(z)
             pt.set_3d_properties(z[i])
+            axs[-1].view_init(10, 135)
 
     fig.canvas.draw()
     return lines + pts

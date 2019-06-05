@@ -51,7 +51,7 @@ ax = fig.add_axes([0, 0, 1, 1], projection='3d')
 set_ss_axes(ax, fontsize, dim=3)
 
 # choose a different color for each trajectory
-color = [0.0, 0.0, 0.8]
+color = [0.0, 0.3, 0.6]
 def init():
     lines = []
     pts = ax.plot(x1, x2, x3, 'o', c=color)

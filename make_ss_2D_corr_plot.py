@@ -40,7 +40,7 @@ x2 = x2[inds]
 fig = plt.figure(figsize=(4, 4))
 ax = plt.gca()
 set_ss_axes(ax, fontsize)
-plt.tight_layout()
+#plt.tight_layout()
 
 # choose a different color for each trajectory
 color = [0.0, 0.3, 0.6]

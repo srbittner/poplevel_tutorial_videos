@@ -63,12 +63,12 @@ if (N_trajectories == 1):
     ax.set_xlim(0, t_end)
     ax.axis('off');
     ax = axs[1]
-    set_neuron_axes(ax, t_end, 1, fontsize=fontsize)
+    set_neuron_axes(ax, t_end, 1, xlabel=True, fontsize=fontsize)
     plt.tight_layout()
 elif (N_trajectories == 2):
     fig, axs = plt.subplots(2, 1, figsize = (8, 4))
     set_neuron_axes(axs[0], t_end, 1, fontsize=fontsize)
-    set_neuron_axes(axs[1], t_end, 2, fontsize=fontsize)
+    set_neuron_axes(axs[1], t_end, 2, xlabel=True, fontsize=fontsize)
     plt.tight_layout()
 else:
     fig = plt.figure(figsize = (8, 4))

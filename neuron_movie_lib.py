@@ -39,12 +39,13 @@ def load_neuron(n, t):
     #x_rec = scipy.ndimage.gaussian_filter(s, 8.0)/dt
     return rates, times
 
-def set_neuron_axes(ax, t_end, n, fontsize=12):
+def set_neuron_axes(ax, t_end, n, xlabel=False, fontsize=12):
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
 
     # set the axes labels
-    ax.set_xlabel('time (s)', fontsize=fontsize)
+    if (xlabel):
+        ax.set_xlabel('time (s)', fontsize=fontsize)
     ax.set_ylabel('neuron %d \n rate' % n, rotation=0, fontsize=fontsize)
     ax.yaxis.set_label_coords(-0.2,0.6)
 
@@ -55,6 +56,8 @@ def set_neuron_axes(ax, t_end, n, fontsize=12):
     ax.set_yticks([0, 10, 20])
     ax.set_ylim((0, 22))
     ax.tick_params(direction='out')
+    ax.patch.set_facecolor('white')
+    ax.patch.set_alpha(0.0)
     return None
 
 def set_ss_axes(ax, fontsize=12, dim=2):
@@ -62,8 +65,11 @@ def set_ss_axes(ax, fontsize=12, dim=2):
     ax.set_ylim((0, 22))
     if (dim == 2):
         ax.set_xlabel('neuron 1 \n rate', rotation=0, fontsize=fontsize)
-        ax.set_ylabel('neuron 2 \n rate', rotation=0, fontsize=fontsize)
-        ax.yaxis.set_label_coords(-0.4,0.6)
+        ax.set_ylabel('neuron 2 \n rate', fontsize=fontsize)
+        perpshift = -0.04
+        parashift = 0.65
+        ax.xaxis.set_label_coords(parashift, perpshift)
+        ax.yaxis.set_label_coords(perpshift, parashift)
         ax.set_xticks([0, 10, 20])
         ax.set_yticks([0, 10, 20])
     if (dim == 3):
