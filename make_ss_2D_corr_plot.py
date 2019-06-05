@@ -43,7 +43,7 @@ set_ss_axes(ax, fontsize)
 plt.tight_layout()
 
 # choose a different color for each trajectory
-color = [0.0, 0.0, 0.8]
+color = [0.0, 0.3, 0.6]
 
 ax.plot(x1, x2, 'o', c=color)
 
@@ -60,4 +60,4 @@ for nstd in [1, 2]:
     ax.add_artist(ell)
 
 plt.savefig('2D_corr.png')
-plt.show()
+#plt.show()

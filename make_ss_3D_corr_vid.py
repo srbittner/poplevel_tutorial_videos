@@ -63,9 +63,20 @@ pts = ax.plot(x1, x2, x3, 'o', c=color)
 step = 2
 def animate(i):
     # we'll step two time-steps per frame.  This leads to nice results.
-    i = (step * i) % total_T
+    elev_start = 10
+    azim_start = 45
 
-    ax.view_init(12, 180 + 1.0 * i)
+    if (i == 45):
+         ax.set_xlabel('')
+         ax.set_ylabel('')
+         ax.set_zlabel('')
+    if (i < 180):
+        elev = elev_start
+        azim = azim_start + 1.0*i % 360
+    else:
+        elev = elev_start + 1.0*(i-180) % 360
+        azim = azim_start + 180 % 360
+    ax.view_init(elev, azim)
     fig.canvas.draw()
     return lines + pts
 

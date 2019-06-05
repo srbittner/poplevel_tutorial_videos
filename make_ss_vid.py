@@ -3,6 +3,7 @@ from scipy import integrate
 
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits
 from matplotlib.colors import cnames
 from matplotlib import animation
 import sys
@@ -40,9 +41,7 @@ x2_x, _ = load_neuron(2, t)
 x3_x, _ = load_neuron(3, t)
 
 Writer = animation.writers['ffmpeg']
-print(Writer)
 writer = Writer(fps=30, metadata=dict(artist='Me'), bitrate=1800)
-print(writer)
 
 filler = np.zeros((T,))
 
@@ -91,21 +90,21 @@ elif (N_trajectories == 3):
     ax1 = plt.subplot(3,2,1)
     ax2 = plt.subplot(3,2,3)
     ax3 = plt.subplot(3,2,5)
-    ax4 = plt.subplot(1,2,2)
+    ax4 = plt.subplot(1,2,2, projection='3d')
     set_neuron_axes(ax1, t_end, 1, fontsize=fontsize)
     set_neuron_axes(ax2, t_end, 2, fontsize=fontsize)
     set_neuron_axes(ax3, t_end, 3, fontsize=fontsize)
-    set_ss_axes(ax4, fontsize=fontsize)
+    set_ss_axes(ax4, fontsize=fontsize, dim=3)
     axs = [ax1, ax2, ax3, ax4]
 else:
     raise NotImplementedError()
 
 
 # choose a different color for each trajectory
-colors = [[0.0, 0.0, 0.8],
-          [0.0, 0.0, 0.8],
-          [0.0, 0.0, 0.8],
-          [0.0, 0.0, 0.8]]
+colors = [[0.0, 0.3, 0.6],
+          [0.0, 0.3, 0.6],
+          [0.0, 0.3, 0.6],
+          [0.0, 0.3, 0.6]]
 #colors = plt.cm.jet(np.linspace(0, 1, 4))
 
 # set up lines and points
@@ -113,6 +112,9 @@ for i in range(N_trajectories+1):
     if i == 0:
         lines = axs[i].plot([], [], '-', c=colors[i])
         pts = axs[i].plot([], [], 'o', c=colors[i])
+    elif i == 3:
+        lines += axs[i].plot([], [], [], '-', c=colors[i])
+        pts += axs[i].plot([], [], [], 'o', c=colors[i])
     else:
         lines += axs[i].plot([], [], '-', c=colors[i])
         pts += axs[i].plot([], [], 'o', c=colors[i])
@@ -122,6 +124,10 @@ def init():
     for line, pt in zip(lines, pts):
         line.set_data([], [])
         pt.set_data([], [])
+
+        if (type(line) == mpl_toolkits.mplot3d.art3d.Line3D):
+            line.set_3d_properties([])
+            pt.set_3d_properties([])
     return lines + pts
 
 
@@ -134,8 +140,10 @@ def animate(i):
     for line, pt, xi in zip(lines, pts, x_t):
         x, y, z = xi
         line.set_data(x, y)
-
         pt.set_data(x[i], y[i])
+        if (type(line) == mpl_toolkits.mplot3d.art3d.Line3D):
+            line.set_3d_properties(z)
+            pt.set_3d_properties(z[i])
 
     fig.canvas.draw()
     return lines + pts

@@ -36,9 +36,7 @@ x1_x, times = load_neuron(1, t)
 x2_x, _ = load_neuron(2, t)
 
 Writer = animation.writers['ffmpeg']
-print(Writer)
 writer = Writer(fps=30, metadata=dict(artist='Me'), bitrate=1800)
-print(writer)
 
 # Solve for the trajectories
 x_1 = np.array([t, 
@@ -62,6 +60,7 @@ if (N_trajectories == 1):
     fig, axs = plt.subplots(2, 1, figsize = (8, 4), gridspec_kw={'height_ratios': [1, 3]})
     ax = axs[0]
     ax.eventplot(times, colors=['k'], orientation='horizontal', linewidths=2);
+    ax.set_xlim(0, t_end)
     ax.axis('off');
     ax = axs[1]
     set_neuron_axes(ax, t_end, 1, fontsize=fontsize)
@@ -77,8 +76,8 @@ else:
 
 
 # choose a different color for each trajectory
-colors = [[0.0, 0.0, 0.8],
-          [0.0, 0.0, 0.8]]
+colors = [[0.0, 0.3, 0.6],
+          [0.0, 0.3, 0.6]]
 
 # set up lines and points
 for i in range(N_trajectories):
